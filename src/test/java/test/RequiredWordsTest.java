@@ -34,6 +34,9 @@ public class RequiredWordsTest {
         assertFalse(requiredWords.isWordRequired(""));
         assertTrue(requiredWords.isWordRequired("after"));
         assertFalse(requiredWords.isWordRequired("before"));
+
+        requiredWords.removeRequiredWord("of");
+        requiredWords.removeRequiredWord("after");
     }
 
     @Test

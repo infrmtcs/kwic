@@ -12,6 +12,7 @@ public class CircularShift {
     public static String DELIMITER = " ";
     private String _line;
     private WordsToIgnore _wordsToIgnore;
+    private RequiredWords _requiredWords;
 
     /**
      * input should not be null
@@ -21,6 +22,7 @@ public class CircularShift {
         assert(line != null);
         this._line = line.toLowerCase();
         this._wordsToIgnore = WordsToIgnore.getWordsToIgnore();
+        this._requiredWords = RequiredWords.getRequiredWords();
     }
 
     public String[] getCircularShifts() {
@@ -63,7 +65,8 @@ public class CircularShift {
 
         Iterator<String> iter = shiftList.iterator();
         while (iter.hasNext()) {
-            if (isShiftStartingWithIgnoredWord(iter.next())) {
+            String shift = iter.next();
+            if (isShiftStartingWithIgnoredWord(shift) || !isShiftStartingWithRequiredWord(shift)) {
                 iter.remove();
             }
         }
@@ -73,6 +76,11 @@ public class CircularShift {
 
     private boolean isShiftStartingWithIgnoredWord(String line) {
         return this._wordsToIgnore.isWordIgnored(line.split(DELIMITER)[0]);
+    }
+
+    private boolean isShiftStartingWithRequiredWord(String line) {
+        return this._requiredWords.isEmpty() ||
+                this._requiredWords.isWordRequired(line.split(DELIMITER)[0]);
     }
 
     private String capitalizeWordsNotIgnoredInShift(String shift) {
