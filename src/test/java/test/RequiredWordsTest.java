@@ -52,5 +52,7 @@ public class RequiredWordsTest {
         assertTrue(testSet.size() == 2);
         assertTrue(testSet.contains("Circular Shift Test This"));
         assertTrue(testSet.contains("Shift Test This Circular"));
+        RequiredWords.getRequiredWords().removeRequiredWord("circular");
+        RequiredWords.getRequiredWords().removeRequiredWord("shift");
     }
 }
